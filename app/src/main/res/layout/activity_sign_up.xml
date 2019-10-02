@@ -4,9 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/background_light"
-    tools:context=".LoginActivity">
-
+    tools:context=".SignUpActivity">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,12 +25,16 @@
             android:layout_marginStart="32dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="32dp"
+            android:layout_marginBottom="16dp"
             android:background="@drawable/round_button_fill"
-            android:text="@string/login"
+            android:text="@string/sign_up"
             android:textColor="@android:color/background_light"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/password_edittext" />
+            app:layout_constraintTop_toBottomOf="@id/confirm_password_edittext"
+            app:layout_constraintVertical_bias="0.0" />
 
         <EditText
             android:id="@+id/password_edittext"
@@ -74,7 +76,7 @@
             android:textCursorDrawable="@drawable/edittext_cursor_color"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintTop_toBottomOf="@+id/editText" />
 
         <TextView
             android:id="@+id/textView"
@@ -84,27 +86,53 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:fontFamily="@font/lobster"
-            android:text="@string/login"
+            android:text="@string/sign_up"
             android:textColor="@android:color/background_light"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/sign_up_prompt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="16dp"
-            android:onClick="signUpNewUser"
-            android:text="@string/sign_up_prompt"
-            android:textColor="@android:color/background_light"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@drawable/round_button_with_stroke"
+            android:drawableStart="@drawable/ic_people_black_24dp"
+            android:drawablePadding="5dp"
+            android:ems="10"
+            android:hint="@string/username"
+            android:inputType="textPersonName"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:textColor="@android:color/darker_gray"
+            android:textCursorDrawable="@drawable/edittext_cursor_color"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/login_button" />
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+        <EditText
+            android:id="@+id/confirm_password_edittext"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/round_button_with_stroke"
+            android:drawableStart="@drawable/ic_lock_black_24dp"
+            android:drawablePadding="5dp"
+            android:ems="10"
+            android:hint="@string/confirm_password"
+            android:inputType="textPassword"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:textColor="@android:color/darker_gray"
+            android:textCursorDrawable="@drawable/edittext_cursor_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/password_edittext" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
