@@ -14,6 +14,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
     }
 
+    //Redirects the user to Sign Up page for creating new account.
     public void signUpNewUser(View view){
         startActivity(new Intent(this,SignUpActivity.class));
     }
