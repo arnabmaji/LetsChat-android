@@ -71,6 +71,9 @@ public class LoginActivity extends AppCompatActivity {
                 loggingInSnackBar.dismiss();
                 if(task.isSuccessful()){
                    Toast.makeText(LoginActivity.this,"User Logged In",Toast.LENGTH_SHORT).show();
+                   //On successful log in take the user to chat page
+                   startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                   finish();
                 } else {
                     Toast.makeText(LoginActivity.this,"Oops! Something error occurred!",Toast.LENGTH_SHORT).show();
                     Log.d(TAG, "onComplete: "+task.getException());
