@@ -23,6 +23,7 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText passwordEditText;
     private EditText confirmPasswordEditText;
     private FirebaseAuth firebaseAuth;
+    private String username;
     private Snackbar signingUpSnackBar;
 
     @Override
@@ -40,7 +41,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     //When the user clicks Sign Up Button
     public void signUpUser(View view){
-        String userName =  userNameEditText.getText().toString();
+        username =  userNameEditText.getText().toString();
         String email = emailEditText.getText().toString();
         String password = passwordEditText.getText().toString();
         String confirmPassword = confirmPasswordEditText.getText().toString();
@@ -59,7 +60,7 @@ public class SignUpActivity extends AppCompatActivity {
             //Create new User in FireBase
             createNewUserAccount(email,password);
         } else{
-            Toast.makeText(this,"Sign up information invalid for " + userName, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"Sign up information invalid for " + username, Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -81,6 +82,8 @@ public class SignUpActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 signingUpSnackBar.dismiss();
                 if(task.isSuccessful()){
+                    //Saving the username locally to SharedPreferences
+                    getSharedPreferences(getPackageName(),MODE_PRIVATE).edit().putString("username",username).apply();
                     Snackbar.make(findViewById(android.R.id.content),"Successfully Signed up!",Snackbar.LENGTH_SHORT)
                             .show();
                     startActivity(new Intent(SignUpActivity.this,LoginActivity.class));

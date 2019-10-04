@@ -8,4 +8,6 @@
     <string name="username">Username</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="enter_message_prompt">Enter your message here&#8230;</string>
+    <string name="author">Author</string>
+    <string name="message">Message</string>
 </resources>

@@ -8,12 +8,11 @@
 
     <ListView
         android:id="@+id/messages_listview"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/user_message_edittext"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -30,6 +29,7 @@
         android:gravity="start|top"
         android:hint="@string/enter_message_prompt"
         android:inputType="textMultiLine"
+        android:textCursorDrawable="@drawable/edittext_cursor_color"
         app:layout_constraintBottom_toBottomOf="@+id/send_message_button"
         app:layout_constraintEnd_toStartOf="@+id/send_message_button"
         app:layout_constraintStart_toStartOf="parent"
@@ -39,10 +39,13 @@
         android:id="@+id/send_message_button"
         android:layout_width="60dp"
         android:layout_height="60dp"
+        android:layout_marginStart="4dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+        android:onClick="sendMessage"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/user_message_edittext"
         app:srcCompat="@drawable/send" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
