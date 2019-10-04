@@ -1,6 +1,8 @@
 package io.github.arnabmaji19.letschat;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.View;
@@ -15,11 +17,11 @@ import com.google.firebase.database.FirebaseDatabase;
 public class MainActivity extends AppCompatActivity {
 
     private EditText userMessageEditText;
-    private ImageView sendButton;
-    private ListView messagesListView;
     private DatabaseReference databaseReference;
-    private ChatListAdapter adapter;
+    private ChatMessagesAdapter adapter;
     private String username;
+    private RecyclerView chatMessagesRecyclerView;
+    private RecyclerView.LayoutManager layoutManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,8 +29,11 @@ public class MainActivity extends AppCompatActivity {
 
         //Linking views of layout
         userMessageEditText = findViewById(R.id.user_message_edittext);
-        sendButton = findViewById(R.id.send_message_button);
-        messagesListView = findViewById(R.id.messages_listview);
+        //Setting up the RecyclerView
+        chatMessagesRecyclerView = findViewById(R.id.chatMessages);
+        layoutManager = new LinearLayoutManager(this);
+        chatMessagesRecyclerView.setLayoutManager(layoutManager);
+
         //Getting database reference
         databaseReference = FirebaseDatabase.getInstance().getReference();
         //Retrieving username
@@ -51,8 +56,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        adapter = new ChatListAdapter(MainActivity.this,username,databaseReference);
-        messagesListView.setAdapter(adapter);
+        adapter = new ChatMessagesAdapter(username, databaseReference);
+        chatMessagesRecyclerView.setAdapter(adapter);
     }
 
     @Override
