@@ -23,16 +23,21 @@ public class UsersListAdapter extends RecyclerView.Adapter<UsersListAdapter.User
     private ArrayList<DataSnapshot> usersSnapshots;
     private ChildEventListener eventListener;
     private Activity activity;
+    private String currentUserEmail;
 
-    UsersListAdapter(Activity activity, DatabaseReference reference){
+    UsersListAdapter(Activity activity, DatabaseReference reference, final String currentUserEmail){
         this.activity = activity;
+        this.currentUserEmail = currentUserEmail;
         usersSnapshots = new ArrayList<>();
         databaseReference = reference.child("users");
         eventListener = new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                usersSnapshots.add(dataSnapshot);
-                notifyDataSetChanged();
+                User user = dataSnapshot.getValue(User.class);
+                if(!user.getEmail().equals(currentUserEmail)){
+                    usersSnapshots.add(dataSnapshot);
+                    notifyDataSetChanged();
+                }
             }
 
             @Override

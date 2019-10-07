@@ -16,9 +16,10 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class UsersListActivity extends AppCompatActivity {
     
-       private RecyclerView usersListRecyclerView;
+    private RecyclerView usersListRecyclerView;
     private UsersListAdapter listAdapter;
     private DatabaseReference reference;
+    String currentUserEmail;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +30,7 @@ public class UsersListActivity extends AppCompatActivity {
         usersListRecyclerView = findViewById(R.id.usersListRecyclerView);
         usersListRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        String currentUserEmail = getSharedPreferences(getPackageName(),MODE_PRIVATE).getString("current_user_email","");
+        currentUserEmail = getSharedPreferences(getPackageName(),MODE_PRIVATE).getString("current_user_email","");
         currentUserEmailTextView.setText(currentUserEmail);
         currentUserIdTextView.setText(currentUserEmail.split("@")[0]);
         reference = FirebaseDatabase.getInstance().getReference();
@@ -55,7 +56,7 @@ public class UsersListActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        listAdapter = new UsersListAdapter(UsersListActivity.this, reference);
+        listAdapter = new UsersListAdapter(UsersListActivity.this, reference, currentUserEmail);
         usersListRecyclerView.setAdapter(listAdapter);
     }
 

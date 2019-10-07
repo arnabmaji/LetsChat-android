@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -28,6 +29,7 @@ public class SignUpActivity extends AppCompatActivity {
     private DatabaseReference databaseReference;
     private String username;
     private Snackbar signingUpSnackBar;
+    private CheckBox termsCheckBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,7 @@ public class SignUpActivity extends AppCompatActivity {
         emailEditText = findViewById(R.id.email_edittext);
         passwordEditText = findViewById(R.id.password_edittext);
         confirmPasswordEditText = findViewById(R.id.confirm_password_edittext);
+        termsCheckBox = findViewById(R.id.termsConditionsCheckBox);
         firebaseAuth = FirebaseAuth.getInstance();
         signingUpSnackBar = Snackbar.make(findViewById(android.R.id.content),"Signing you up...",Snackbar.LENGTH_INDEFINITE);
         databaseReference = FirebaseDatabase.getInstance().getReference();
@@ -60,7 +63,7 @@ public class SignUpActivity extends AppCompatActivity {
             isAllInformationValid = false;
             passwordEditText.requestFocus();
         }
-        if(isAllInformationValid){
+        if(isAllInformationValid && termsCheckBox.isChecked()){
             //Create new User in FireBase
             createNewUserAccount(email,password);
         } else{
