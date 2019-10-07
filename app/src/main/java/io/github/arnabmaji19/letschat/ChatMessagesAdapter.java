@@ -58,6 +58,7 @@ public class ChatMessagesAdapter extends RecyclerView.Adapter<ChatMessagesAdapte
         this.databaseReference.addChildEventListener(eventListener);
     }
 
+
     @NonNull
     @Override
     public MessageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -68,12 +69,14 @@ public class ChatMessagesAdapter extends RecyclerView.Adapter<ChatMessagesAdapte
 
     @Override
     public void onBindViewHolder(@NonNull MessageViewHolder holder, int position) {
-        DataSnapshot dataSnapshot = snapshots.get(position);
+        final DataSnapshot dataSnapshot = snapshots.get(position);
         InstantMessage instantMessage = dataSnapshot.getValue(InstantMessage.class);
         String author = instantMessage.getAuthor();
         if(author.equals(currentUsername)){
             //If this user has sent the message
             //Show the right
+            holder.thisAuthorTextView.setVisibility(View.VISIBLE);
+            holder.thisMessageTextView.setVisibility(View.VISIBLE);
             holder.thisAuthorTextView.setText(author);
             holder.thisMessageTextView.setText(instantMessage.getMessage());
             //hide the left
@@ -84,6 +87,8 @@ public class ChatMessagesAdapter extends RecyclerView.Adapter<ChatMessagesAdapte
             holder.thisAuthorTextView.setVisibility(View.GONE);
             holder.thisMessageTextView.setVisibility(View.GONE);
             //show the left
+            holder.otherAuthorTextView.setVisibility(View.VISIBLE);
+            holder.otherMessageTextView.setVisibility(View.VISIBLE);
             holder.otherAuthorTextView.setText(author);
             holder.otherMessageTextView.setText(instantMessage.getMessage());
         }
@@ -94,7 +99,7 @@ public class ChatMessagesAdapter extends RecyclerView.Adapter<ChatMessagesAdapte
         return snapshots.size();
     }
 
-    public void cleanUp(){
+    void cleanUp(){
         databaseReference.removeEventListener(eventListener);
     }
 

@@ -15,6 +15,8 @@ import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -23,6 +25,7 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText passwordEditText;
     private EditText confirmPasswordEditText;
     private FirebaseAuth firebaseAuth;
+    private DatabaseReference databaseReference;
     private String username;
     private Snackbar signingUpSnackBar;
 
@@ -37,6 +40,7 @@ public class SignUpActivity extends AppCompatActivity {
         confirmPasswordEditText = findViewById(R.id.confirm_password_edittext);
         firebaseAuth = FirebaseAuth.getInstance();
         signingUpSnackBar = Snackbar.make(findViewById(android.R.id.content),"Signing you up...",Snackbar.LENGTH_INDEFINITE);
+        databaseReference = FirebaseDatabase.getInstance().getReference();
     }
 
     //When the user clicks Sign Up Button
@@ -75,17 +79,15 @@ public class SignUpActivity extends AppCompatActivity {
         return password.equals(confirmPassword) && password.length() > 5;
     }
     //Create new user account
-    private void createNewUserAccount(String email, String password){
+    private void createNewUserAccount(final String email, final String password){
         signingUpSnackBar.show();
         firebaseAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 signingUpSnackBar.dismiss();
                 if(task.isSuccessful()){
-                    //Saving the username locally to SharedPreferences
-                    getSharedPreferences(getPackageName(),MODE_PRIVATE).edit().putString("username",username).apply();
-                    Snackbar.make(findViewById(android.R.id.content),"Successfully Signed up!",Snackbar.LENGTH_SHORT)
-                            .show();
+                    User user = new User(username,email,password);
+                    databaseReference.child("users").push().setValue(user);
                     startActivity(new Intent(SignUpActivity.this,LoginActivity.class));
                 } else {
                     Snackbar.make(findViewById(android.R.id.content),"Oops! Something went wrong",Snackbar.LENGTH_SHORT)

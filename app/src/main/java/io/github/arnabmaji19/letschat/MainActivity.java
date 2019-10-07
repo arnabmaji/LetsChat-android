@@ -1,11 +1,14 @@
 package io.github.arnabmaji19.letschat;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -50,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
             InstantMessage chat = new InstantMessage(username,userMessage);
             databaseReference.child("messages").push().setValue(chat);
             userMessageEditText.setText(""); //Clears the current message from edit text
+            hideKeyBoardFromWindow(); //Hides keyboard from window
         }
     }
 
@@ -64,5 +68,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         adapter.cleanUp();
+    }
+
+    private void hideKeyBoardFromWindow(){
+        ConstraintLayout layout = findViewById(R.id.mainChatLayout);
+        InputMethodManager methodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        methodManager.hideSoftInputFromWindow(layout.getWindowToken(),0);
     }
 }
