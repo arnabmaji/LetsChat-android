@@ -11,4 +11,8 @@
     <string name="author">Author</string>
     <string name="message">Message</string>
     <string name="current_user">Current User</string>
+    <string name="user_icon">User Icon</string>
+    <string name="other_users">Other Users</string>
+    <string name="remember_login">Remember Log In information</string>
+    <string name="terms_conditions">I agree to the terms and conditions</string>
 </resources>

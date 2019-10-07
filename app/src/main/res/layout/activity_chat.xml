@@ -11,10 +11,10 @@
     <EditText
         android:id="@+id/user_message_edittext"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="70dp"
         android:layout_marginStart="8dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/message_input_background"
         android:ems="10"
         android:gravity="start|top"
@@ -22,25 +22,19 @@
         android:inputType="textMultiLine"
         android:padding="8dp"
         android:textCursorDrawable="@drawable/edittext_cursor_color"
-        app:layout_constraintBottom_toBottomOf="@+id/send_message_button"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/send_message_button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/send_message_button" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/send_message_button"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
         android:onClick="sendMessage"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/user_message_edittext"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/user_message_edittext"
-        app:layout_constraintTop_toBottomOf="@+id/chatMessages"
-        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintTop_toTopOf="@+id/user_message_edittext"
         app:srcCompat="@drawable/send" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -54,6 +48,7 @@
         app:layout_constraintBottom_toTopOf="@+id/user_message_edittext"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:reverseLayout="true" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

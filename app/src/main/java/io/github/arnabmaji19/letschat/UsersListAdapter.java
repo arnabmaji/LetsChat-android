@@ -1,17 +1,14 @@
 package io.github.arnabmaji19.letschat;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.ChildEventListener;
@@ -19,19 +16,16 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 
-import java.net.ContentHandler;
 import java.util.ArrayList;
 
 public class UsersListAdapter extends RecyclerView.Adapter<UsersListAdapter.UserViewHolder> {
     private DatabaseReference databaseReference;
     private ArrayList<DataSnapshot> usersSnapshots;
     private ChildEventListener eventListener;
-    private String currentUserEmail;
     private Activity activity;
 
-    UsersListAdapter(Activity activity , String currentUserEmail, DatabaseReference reference){
+    UsersListAdapter(Activity activity, DatabaseReference reference){
         this.activity = activity;
-        this.currentUserEmail = currentUserEmail;
         usersSnapshots = new ArrayList<>();
         databaseReference = reference.child("users");
         eventListener = new ChildEventListener() {
@@ -111,6 +105,5 @@ public class UsersListAdapter extends RecyclerView.Adapter<UsersListAdapter.User
         Intent chatIntent = new Intent(activity,ChatActivity.class);
         chatIntent.putExtra("chat_with_email",email);
         activity.startActivity(chatIntent);
-        activity.finish();
     }
 }

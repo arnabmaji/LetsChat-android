@@ -12,7 +12,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class UsersListActivity extends AppCompatActivity {
 
-    private TextView currentUserTextView;
+    private TextView currentUseremailTextView;
+    private TextView currentUserIdTextView;
     private RecyclerView usersListRecyclerView;
     private UsersListAdapter listAdapter;
     private DatabaseReference reference;
@@ -23,20 +24,21 @@ public class UsersListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_users_list);
         //Linking views
-        currentUserTextView = findViewById(R.id.currentUserTextView);
+        currentUseremailTextView = findViewById(R.id.currentUseremailTextView);
+        currentUserIdTextView = findViewById(R.id.currentUserIdTextView);
         usersListRecyclerView = findViewById(R.id.usersListRecyclerView);
         usersListRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         currentUserEmail = getSharedPreferences(getPackageName(),MODE_PRIVATE).getString("current_user_email",null);
-        String currentUser = "Current User:\n" + currentUserEmail;
-        currentUserTextView.setText(currentUser);
+        currentUseremailTextView.setText(currentUserEmail);
+        currentUserIdTextView.setText(currentUserEmail.split("@")[0]);
         reference = FirebaseDatabase.getInstance().getReference();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        listAdapter = new UsersListAdapter(UsersListActivity.this,currentUserEmail, reference);
+        listAdapter = new UsersListAdapter(UsersListActivity.this, reference);
         usersListRecyclerView.setAdapter(listAdapter);
     }
 

@@ -9,12 +9,10 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:background="@drawable/container_background"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -35,8 +33,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/confirm_password_edittext"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toBottomOf="@+id/termsConditionsCheckBox" />
 
         <EditText
             android:id="@+id/password_edittext"
@@ -45,7 +42,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
-            android:background="@drawable/round_button_with_stroke"
+            android:background="@drawable/round_button"
             android:drawableStart="@drawable/ic_lock_black_24dp"
             android:drawablePadding="5dp"
             android:ems="10"
@@ -66,7 +63,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
-            android:background="@drawable/round_button_with_stroke"
+            android:background="@drawable/round_button"
             android:drawableStart="@drawable/ic_email_black_24dp"
             android:drawablePadding="5dp"
             android:ems="10"
@@ -87,7 +84,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
-            android:background="@drawable/round_button_with_stroke"
+            android:background="@drawable/round_button"
             android:drawableStart="@drawable/ic_people_black_24dp"
             android:drawablePadding="5dp"
             android:ems="10"
@@ -99,7 +96,7 @@
             android:textCursorDrawable="@drawable/edittext_cursor_color"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintTop_toBottomOf="@+id/logInHeader" />
 
         <EditText
             android:id="@+id/confirm_password_edittext"
@@ -108,7 +105,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
-            android:background="@drawable/round_button_with_stroke"
+            android:background="@drawable/round_button"
             android:drawableStart="@drawable/ic_lock_black_24dp"
             android:drawablePadding="5dp"
             android:ems="10"
@@ -123,18 +120,29 @@
             app:layout_constraintTop_toBottomOf="@+id/password_edittext" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/logInHeader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
-            android:fontFamily="@font/lobster"
+            android:fontFamily="sans-serif"
             android:text="@string/sign_up"
             android:textColor="@android:color/background_light"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <CheckBox
+            android:id="@+id/termsConditionsCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/terms_conditions"
+            android:textColor="@android:color/background_light"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/confirm_password_edittext" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
