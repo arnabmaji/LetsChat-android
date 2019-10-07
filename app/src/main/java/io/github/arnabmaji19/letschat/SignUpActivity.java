@@ -89,6 +89,7 @@ public class SignUpActivity extends AppCompatActivity {
                     User user = new User(username,email,password);
                     databaseReference.child("users").push().setValue(user);
                     startActivity(new Intent(SignUpActivity.this,LoginActivity.class));
+                    finish();
                 } else {
                     Snackbar.make(findViewById(android.R.id.content),"Oops! Something went wrong",Snackbar.LENGTH_SHORT)
                             .show();

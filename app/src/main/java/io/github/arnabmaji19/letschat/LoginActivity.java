@@ -28,10 +28,10 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        firebaseAuth = FirebaseAuth.getInstance();
 
         emailEditText = findViewById(R.id.email_edittext);
         passwordEditText = findViewById(R.id.password_edittext);
-        firebaseAuth = FirebaseAuth.getInstance();
         loggingInSnackBar = Snackbar.make(findViewById(android.R.id.content),"Logging in...",Snackbar.LENGTH_INDEFINITE);
     }
 
@@ -63,7 +63,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     //Log In the user
-    private void attemptLogIn(String email, String password){
+    private void attemptLogIn(final String email, final String password){
         firebaseAuth.signInWithEmailAndPassword(email,password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
@@ -71,8 +71,8 @@ public class LoginActivity extends AppCompatActivity {
                 loggingInSnackBar.dismiss();
                 if(task.isSuccessful()){
                    Toast.makeText(LoginActivity.this,"User Logged In",Toast.LENGTH_SHORT).show();
-                   //On successful log in take the user to chat page
-                   startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                   getSharedPreferences(getPackageName(),MODE_PRIVATE).edit().putString("current_user_email",email).apply();
+                   startActivity(new Intent(LoginActivity.this,UsersListActivity.class));
                    finish();
                 } else {
                     Toast.makeText(LoginActivity.this,"Oops! Something error occurred!",Toast.LENGTH_SHORT).show();
