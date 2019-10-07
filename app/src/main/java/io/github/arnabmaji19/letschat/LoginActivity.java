@@ -4,9 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -22,16 +24,26 @@ public class LoginActivity extends AppCompatActivity {
     private EditText passwordEditText;
     private FirebaseAuth firebaseAuth;
     private Snackbar loggingInSnackBar;
+    private CheckBox rememberLogInCheckBox;
+    SharedPreferences preferences;
     private static final String TAG = "LetsChat";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        preferences = getSharedPreferences(getPackageName(),MODE_PRIVATE);
         firebaseAuth = FirebaseAuth.getInstance();
-
+        if(rememberLogInInfo()){ //If previously login information is saved jump to all users list
+            String userEmail = preferences.getString("current_user_email","");
+            String password = preferences.getString("current_user_password","");
+            firebaseAuth.signInWithEmailAndPassword(userEmail,password);
+            startActivity(new Intent(LoginActivity.this,UsersListActivity.class));
+            finish();
+        }
         emailEditText = findViewById(R.id.email_edittext);
         passwordEditText = findViewById(R.id.password_edittext);
+        rememberLogInCheckBox = findViewById(R.id.rememberLogInCheckBox);
         loggingInSnackBar = Snackbar.make(findViewById(android.R.id.content),"Logging in...",Snackbar.LENGTH_INDEFINITE);
     }
 
@@ -70,8 +82,14 @@ public class LoginActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 loggingInSnackBar.dismiss();
                 if(task.isSuccessful()){
+                    if(rememberLogInCheckBox.isChecked()){
+                        preferences.edit().putString("current_user_password",password).apply();
+                    }
                    Toast.makeText(LoginActivity.this,"User Logged In",Toast.LENGTH_SHORT).show();
-                   getSharedPreferences(getPackageName(),MODE_PRIVATE).edit().putString("current_user_email",email).apply();
+                   preferences
+                           .edit()
+                           .putString("current_user_email",email)
+                           .apply();
                    startActivity(new Intent(LoginActivity.this,UsersListActivity.class));
                    finish();
                 } else {
@@ -80,5 +98,9 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private boolean rememberLogInInfo(){
+        return preferences.getString("current_user_password",null) != null;
     }
 }
