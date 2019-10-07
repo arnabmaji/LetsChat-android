@@ -2,6 +2,7 @@ package io.github.arnabmaji19.letschat;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,8 +27,10 @@ public class UsersListAdapter extends RecyclerView.Adapter<UsersListAdapter.User
     private ArrayList<DataSnapshot> usersSnapshots;
     private ChildEventListener eventListener;
     private String currentUserEmail;
+    private Activity activity;
 
-    UsersListAdapter(String currentUserEmail, DatabaseReference reference){
+    UsersListAdapter(Activity activity , String currentUserEmail, DatabaseReference reference){
+        this.activity = activity;
         this.currentUserEmail = currentUserEmail;
         usersSnapshots = new ArrayList<>();
         databaseReference = reference.child("users");
@@ -105,6 +108,9 @@ public class UsersListAdapter extends RecyclerView.Adapter<UsersListAdapter.User
     }
 
     private void startChatWith(String email){
-
+        Intent chatIntent = new Intent(activity,ChatActivity.class);
+        chatIntent.putExtra("chat_with_email",email);
+        activity.startActivity(chatIntent);
+        activity.finish();
     }
 }

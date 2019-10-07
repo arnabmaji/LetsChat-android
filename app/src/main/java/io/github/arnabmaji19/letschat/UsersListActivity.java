@@ -31,7 +31,12 @@ public class UsersListActivity extends AppCompatActivity {
         String currentUser = "Current User:\n" + currentUserEmail;
         currentUserTextView.setText(currentUser);
         reference = FirebaseDatabase.getInstance().getReference();
-        listAdapter = new UsersListAdapter(currentUserEmail, reference);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        listAdapter = new UsersListAdapter(UsersListActivity.this,currentUserEmail, reference);
         usersListRecyclerView.setAdapter(listAdapter);
     }
 

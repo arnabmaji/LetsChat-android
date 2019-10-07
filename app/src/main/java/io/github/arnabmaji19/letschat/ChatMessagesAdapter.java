@@ -22,12 +22,12 @@ public class ChatMessagesAdapter extends RecyclerView.Adapter<ChatMessagesAdapte
     private ArrayList<DataSnapshot> snapshots;
     private DatabaseReference databaseReference;
     private ChildEventListener eventListener;
-    private String currentUsername;
+    private String currentUserId;
 
     ChatMessagesAdapter(String username , DatabaseReference databaseReference) {
         snapshots = new ArrayList<>();
-        this.currentUsername = username;
-        this.databaseReference = databaseReference.child("messages");
+        this.currentUserId = username;
+        this.databaseReference = databaseReference;
         eventListener = new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -72,7 +72,7 @@ public class ChatMessagesAdapter extends RecyclerView.Adapter<ChatMessagesAdapte
         final DataSnapshot dataSnapshot = snapshots.get(position);
         InstantMessage instantMessage = dataSnapshot.getValue(InstantMessage.class);
         String author = instantMessage.getAuthor();
-        if(author.equals(currentUsername)){
+        if(author.equals(currentUserId)){
             //If this user has sent the message
             //Show the right
             holder.thisAuthorTextView.setVisibility(View.VISIBLE);
