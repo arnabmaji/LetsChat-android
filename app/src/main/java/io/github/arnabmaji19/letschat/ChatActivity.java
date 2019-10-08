@@ -19,7 +19,6 @@ public class ChatActivity extends AppCompatActivity {
     private EditText userMessageEditText;
     private DatabaseReference databaseReference;
     private ChatMessagesAdapter adapter;
-    private String username;
     private RecyclerView chatMessagesRecyclerView;
     private String currentUserEmail;
     private String chatWithUserEmail;
@@ -34,18 +33,14 @@ public class ChatActivity extends AppCompatActivity {
         userMessageEditText = findViewById(R.id.user_message_edittext);
         //Setting up the RecyclerView
         chatMessagesRecyclerView = findViewById(R.id.chatMessages);
-        chatMessagesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager manager = new LinearLayoutManager(this);
+        chatMessagesRecyclerView.setLayoutManager(manager);
         //Determining the chat preferences
         currentUserEmail = getSharedPreferences(getPackageName(),MODE_PRIVATE).getString("current_user_email",null);
         chatWithUserEmail = getIntent().getStringExtra("chat_with_email");
         String chatId = getChatId(currentUserEmail,chatWithUserEmail);
         //Getting database reference for current chat
         databaseReference = FirebaseDatabase.getInstance().getReference().child("chats").child(chatId);
-        //Retrieving username
-        username = getSharedPreferences(getPackageName(),MODE_PRIVATE).getString("username",null);
-        if(username == null){
-            username = "Anonymous";
-        }
     }
 
     //Send a message to firebase cloud
@@ -62,7 +57,7 @@ public class ChatActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        adapter = new ChatMessagesAdapter(currentUserId, databaseReference);
+        adapter = new ChatMessagesAdapter(currentUserId, databaseReference, chatMessagesRecyclerView);
         chatMessagesRecyclerView.setAdapter(adapter);
     }
 

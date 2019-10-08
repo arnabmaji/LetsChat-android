@@ -23,9 +23,11 @@ public class ChatMessagesAdapter extends RecyclerView.Adapter<ChatMessagesAdapte
     private DatabaseReference databaseReference;
     private ChildEventListener eventListener;
     private String currentUserId;
+    private RecyclerView view;
 
-    ChatMessagesAdapter(String username , DatabaseReference databaseReference) {
+    ChatMessagesAdapter(String username , DatabaseReference databaseReference, final RecyclerView view) {
         snapshots = new ArrayList<>();
+        this.view = view;
         this.currentUserId = username;
         this.databaseReference = databaseReference;
         eventListener = new ChildEventListener() {
@@ -33,6 +35,7 @@ public class ChatMessagesAdapter extends RecyclerView.Adapter<ChatMessagesAdapte
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 snapshots.add(dataSnapshot);
                 notifyDataSetChanged();
+                view.smoothScrollToPosition(snapshots.size()-1);
             }
 
             @Override
