@@ -17,4 +17,12 @@
     <string name="terms_conditions">I agree to the terms and conditions</string>
     <string name="settings">Settings</string>
     <string name="log_out">Log Out</string>
+    <string name="copyright_notice">©2019 Arnab Maji, All Rights Reserved.</string>
+    <string name="app_description">Lets Chat\nVersion: 1.0\n\nDeveloped with ❤️ By️ Arnab Maji</string>
+    <string name="thanks_textview">Thank you for using this app!\nAny suggestions, Any queries?\nFeel free to contact!</string>
+    <string name="gh_social_media">Github</string>
+    <string name="fb_social_media">Facebook</string>
+    <string name="ig_social_media">Instagram</string>
+    <string name="wp_social_media">Whatsapp</string>
+    <string name="other_settings">Other</string>
 </resources>

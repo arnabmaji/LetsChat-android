@@ -32,6 +32,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        getSupportActionBar().hide();
         preferences = getSharedPreferences(getPackageName(),MODE_PRIVATE);
         firebaseAuth = FirebaseAuth.getInstance();
         if(rememberLogInInfo()){ //If previously login information is saved jump to all users list

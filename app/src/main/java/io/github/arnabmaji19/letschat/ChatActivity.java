@@ -77,7 +77,7 @@ public class ChatActivity extends AppCompatActivity {
     private String getChatId(String currentUserEmail, String chatWithUserEmail){
         currentUserId = currentUserEmail.split("@")[0];
         chatWithUserId = chatWithUserEmail.split("@")[0];
-        String chatId = "";
+        String chatId;
         if(currentUserEmail.compareTo(chatWithUserEmail) > 0){
             chatId = getASCIIString(currentUserId) + "_AND_" + getASCIIString(chatWithUserId);
         } else {
